@@ -7,5 +7,5 @@ Cubed is a CLI tool that scaffolds systematic styling with the Cube CSS methodol
 # useage
 
 ```shell
-npx cubed create
+npx cubed-cli create
 ```
