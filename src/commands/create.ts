@@ -2,7 +2,7 @@ import { program, Command } from "commander";
 import p from "@clack/prompts";
 
 export const create = new Command("create")
-  .description("scaffolds a new cubed project")
+  .description("scaffolds a new project")
   .action(async () => {
     const { directory } = await p.group(
       {
@@ -10,7 +10,7 @@ export const create = new Command("create")
           const defaultPath = "./";
 
           return p.text({
-            message: "Where would you like to place this cubed project?",
+            message: "Where would you like to place this project?",
             placeholder: `(hit Enter to use '${defaultPath}')`,
             defaultValue: defaultPath,
           });
