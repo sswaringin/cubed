@@ -1,11 +1,14 @@
 {
-  "name": "cubed",
+  "name": "cubed-cli",
   "version": "0.1.0",
   "description": "A CLI tool that scaffolds styling with the Cube CSS methodology in mind",
-  "bin": {
-    "cubed": "dist/index.js"
-  },
+  "bin": "dist/index.js",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sswaringin/cubed"
+  },
+  "homepage": "https://github.com/sswaringin/cubed",
   "scripts": {
     "dev": "tsc --watch"
   },
