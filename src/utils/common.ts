@@ -1,5 +1,19 @@
 import fs from "node:fs";
 import path from "node:path";
+import * as p from "@clack/prompts";
+
+type Command = () => Promise<void>;
+
+export async function runCommand(command: Command): Promise<void> {
+  try {
+    p.intro("Welcome to the cubed cli!");
+
+    await command();
+    // p.outro("all done");
+  } catch (error) {
+    p.cancel("an error has occurred");
+  }
+}
 
 export function writeFile(
   workspace: string,
