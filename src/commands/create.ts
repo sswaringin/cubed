@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import * as p from "@clack/prompts";
-import { runCommand } from "../utils/common";
+import { runCommand, writeDir } from "../utils/common";
 import path from "node:path";
 
 export const create = new Command("create")
@@ -9,21 +9,31 @@ export const create = new Command("create")
     runCommand(async () => {
       const { directory } = await createProject();
 
-      console.log({ directory, cwd: process.cwd() });
-      const relative = path.relative(process.cwd(), directory);
-
-      console.log("The relative path is: ", relative);
+      // In the future, here is where additional steps can be introduced.
+      // TODO: detect if the base dirs are already created
+      // TODO: use a spinner and highlighting to indicate what is happening
+      const baseDirs = [
+        "./compositions",
+        "./blocks",
+        "./global",
+        "./utilities",
+      ];
+      baseDirs.forEach((dir) => writeDir(directory, dir));
     });
   });
+
+async function makeDirs() {
+  await p.text({ message: "hello" });
+}
 
 async function createProject() {
   const { directory } = await p.group(
     {
       directory: () => {
-        const defaultPath = "./";
+        const defaultPath = "./styles";
 
         return p.text({
-          message: "Where would you like to place this project?",
+          message: "Where would you like to generate the styles?",
           placeholder: `(hit Enter to use '${defaultPath}')`,
           defaultValue: defaultPath,
         });
