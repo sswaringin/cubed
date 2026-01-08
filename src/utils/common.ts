@@ -44,3 +44,7 @@ export function writeDir(dirPath: string, dirName: string): void {
     fs.mkdirSync(fullDirPath, { recursive: true });
   }
 }
+
+export const isDir = (filename: string) => {
+  return fs.lstatSync(filename).isDirectory();
+};

@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/sswaringin/cubed",
   "scripts": {
-    "dev": "tsc --watch"
+    "dev": "tsc --watch & chokidar 'src/templates/**' -c 'node dist/scripts/copy-templates.js'"
   },
   "keywords": [
     "cli",
@@ -25,6 +25,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3"
+    "@types/node": "^25.0.3",
+    "chokidar-cli": "^3.0.0"
   }
 }
