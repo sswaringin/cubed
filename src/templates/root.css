@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@import "./global/theme.css";
+
+@layer base {
+  @import "./global/reset.css";
+  @import "./global/global-styles.css";
+}
+
+@layer components {
+  /* compositions */
+
+  /* blocks */
+}
+
+@layer utilities {
+  /* utilities */
+}

@@ -1,3 +1,4 @@
+import pkg from "../../package.json";
 import fs from "node:fs";
 import path from "node:path";
 import * as p from "@clack/prompts";
@@ -6,7 +7,7 @@ type Command = () => Promise<void>;
 
 export async function runCommand(command: Command): Promise<void> {
   try {
-    p.intro("Welcome to the cubed cli!");
+    p.intro(`Welcome to the cubed cli! (${pkg.version})`);
 
     await command();
     // p.outro("all done");
@@ -19,6 +20,12 @@ export async function runCommand(command: Command): Promise<void> {
   }
 }
 
+export function readFile(workspace: string, filePath: string) {
+  const fullFilePath = path.resolve(workspace, filePath);
+
+  return fs.readFileSync(fullFilePath, { encoding: "utf-8" });
+}
+
 export function writeFile(
   workspace: string,
   filePath: string,
@@ -29,7 +36,7 @@ export function writeFile(
 
   // make directory if it doesn't already exist
   if (!fs.existsSync(fullDirPath)) {
-    fs.mkdirSync(fullDirPath);
+    fs.mkdirSync(fullDirPath, { recursive: true });
   }
 
   // what happens if the file already exists?
@@ -44,3 +51,7 @@ export function writeDir(dirPath: string, dirName: string): void {
     fs.mkdirSync(fullDirPath, { recursive: true });
   }
 }
+
+export const isDir = (filename: string) => {
+  return fs.lstatSync(filename).isDirectory();
+};
