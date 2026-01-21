@@ -1,12 +1,9 @@
 @import "tailwindcss";
 
-@theme {
-  @import "./global/theme.css";
-}
+@import "./global/theme.css";
 
 @layer base {
   @import "./global/reset.css";
-  @import "./global/fonts.css";
   @import "./global/global-styles.css";
 }
 
@@ -17,5 +14,5 @@
 }
 
 @layer utilities {
-  /* insert utilities */
+  /* utilities */
 }

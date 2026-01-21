@@ -19,6 +19,12 @@ export async function runCommand(command: Command): Promise<void> {
   }
 }
 
+export function readFile(workspace: string, filePath: string) {
+  const fullFilePath = path.resolve(workspace, filePath);
+
+  return fs.readFileSync(fullFilePath, { encoding: "utf-8" });
+}
+
 export function writeFile(
   workspace: string,
   filePath: string,

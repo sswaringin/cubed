@@ -1,12 +1,14 @@
 import { Command } from "commander";
 import * as p from "@clack/prompts";
-import { isDir, runCommand, writeDir, writeFile } from "../utils/common";
+import {
+  isDir,
+  readFile,
+  runCommand,
+  writeDir,
+  writeFile,
+} from "../utils/common";
 import * as fs from "node:fs";
 import path from "node:path";
-
-// const isDir = (filename: string) => {
-//   return fs.lstatSync(filename).isDirectory();
-// };
 
 export const create = new Command("create")
   .description("scaffolds a new project")
@@ -27,13 +29,19 @@ export const create = new Command("create")
 
       // TODO: convert baseFiles to key value pairs to link each path to its content
       // TODO: consider more efficient approaches compared to manually tracking all file paths
-      // TODO: when do I update the "global.css" file? after each base file is created? Don't assume things will always succeed.
+      // TODO: how to cleanup files if something fails mid process
       const baseFiles = [
-        "./global.css",
-        "./global/global-styles.css",
+        "./root.css",
         "./global/reset.css",
+        "./global/global-styles.css",
+        "./global/fonts.css",
+        "./global/theme.css",
+        "./global/sizes/text.css",
+        "./global/sizes/space.css",
       ];
-      baseFiles.forEach((file) => writeFile(directory, file, "testing123"));
+      baseFiles.forEach((file) => {
+        writeFile(directory, file, readFile(templatesPath, file));
+      });
     });
   });
 

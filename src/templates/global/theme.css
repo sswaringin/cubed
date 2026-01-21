@@ -1,7 +1,8 @@
 /* theme.css */
 @import "./sizes/text.css";
 @import "./sizes/space.css";
-:root {
+@import "./fonts.css";
+@theme {
   /* colors */
   --color-dark: #000000;
   --color-light: #ffffff;
