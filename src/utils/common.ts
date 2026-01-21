@@ -1,3 +1,4 @@
+import pkg from "../../package.json";
 import fs from "node:fs";
 import path from "node:path";
 import * as p from "@clack/prompts";
@@ -6,7 +7,7 @@ type Command = () => Promise<void>;
 
 export async function runCommand(command: Command): Promise<void> {
   try {
-    p.intro("Welcome to the cubed cli!");
+    p.intro(`Welcome to the cubed cli! (${pkg.version})`);
 
     await command();
     // p.outro("all done");
