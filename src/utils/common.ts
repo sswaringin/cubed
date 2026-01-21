@@ -35,7 +35,7 @@ export function writeFile(
 
   // make directory if it doesn't already exist
   if (!fs.existsSync(fullDirPath)) {
-    fs.mkdirSync(fullDirPath);
+    fs.mkdirSync(fullDirPath, { recursive: true });
   }
 
   // what happens if the file already exists?

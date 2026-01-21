@@ -19,34 +19,39 @@ export const create = new Command("create")
       // In the future, here is where additional steps can be introduced.
       // TODO: detect if the base dirs are already created
       // TODO: use a spinner and highlighting to indicate what is happening
-      const templatesPath = path.join(__dirname, "../templates");
-      const baseDirs = fs.readdirSync(templatesPath).filter((name) => {
-        const fullPath = path.join(templatesPath, name);
-        return isDir(fullPath);
-      });
-
-      baseDirs.forEach((dir) => writeDir(directory, dir));
-
-      // TODO: convert baseFiles to key value pairs to link each path to its content
-      // TODO: consider more efficient approaches compared to manually tracking all file paths
       // TODO: how to cleanup files if something fails mid process
-      const baseFiles = [
-        "./root.css",
-        "./global/reset.css",
-        "./global/global-styles.css",
-        "./global/fonts.css",
-        "./global/theme.css",
-        "./global/sizes/text.css",
-        "./global/sizes/space.css",
-      ];
-      baseFiles.forEach((file) => {
-        writeFile(directory, file, readFile(templatesPath, file));
-      });
+      const templatesPath = path.join(__dirname, "../templates");
+      copyTemplateFiles(templatesPath, directory);
     });
   });
 
 async function makeDirs() {
   await p.text({ message: "making dirs" });
+}
+
+// recursively generate base directories and files
+function copyTemplateFiles(sourcePath: string, destPath: string): void {
+  const entries = fs.readdirSync(sourcePath);
+
+  entries.forEach((entry) => {
+    const sourceEntryPath = path.join(sourcePath, entry);
+    const relativeEntryPath = path.relative(
+      path.join(__dirname, "../templates"),
+      sourceEntryPath
+    );
+
+    if (isDir(sourceEntryPath)) {
+      // Recursively process subdirectories
+      copyTemplateFiles(sourceEntryPath, destPath);
+    } else {
+      // Copy file
+      const content = readFile(
+        path.join(__dirname, "../templates"),
+        relativeEntryPath
+      );
+      writeFile(destPath, relativeEntryPath, content);
+    }
+  });
 }
 
 async function createProject() {
